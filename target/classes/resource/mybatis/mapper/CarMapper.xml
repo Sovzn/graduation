@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.syc.dao.CarDao">
+    <insert id="addCar" parameterType="Car">
+    insert  into car(cnumber,ctype,coutNum,cage,seatnum,state,cseries)
+    values(#{cnumber},#{ctype},#{coutNum},#{cage},#{seatnum},#{state},#{cseries})
+    </insert>
+
+  <select id="selAllCars" resultType="Car">
+      SELECT * from car
+  </select>
+
+    <delete id="delCarByID" parameterType="Integer">
+        delete  from car
+        where cid=#{id}
+    </delete>
+    <select id="selCarByID" parameterType="Integer" resultType="Car" >
+        select * from car
+        where cid=#{id};
+    </select>
+
+    <update id="updateCar" parameterType="Car">
+        UPDATE car
+        <set>
+            <if test="cid !=null and cid !=''">
+                cid=#{cid},
+            </if>
+            <if test="cnumber !=null and cnumber !=''">
+                cnumber =#{cnumber},
+            </if>
+            <if test="ctype !=null and ctype !=''">
+                ctype=#{ctype},
+            </if>
+            <if test="coutNum !=null and coutNum !=''">
+                coutNum=#{coutNum},
+            </if>
+            <if test="cage !=null and cage !=''">
+                cage=#{cage},
+            </if>
+            <if test="seatnum !=null and seatnum !=''">
+                seatnum=#{seatnum},
+            </if>
+            <if test="state !=null and state !=''">
+                state=#{state},
+            </if>
+
+            <if test="cseries !=null and cseries !=''">
+                cseries=#{cseries},
+            </if>
+        </set>
+        where cid=#{cid}
+    </update>
+
+    <select id="selCarByMap" parameterType="Map" resultType="Car">
+        SELECT  *  FROM  car where 1=1
+        <if test="cnumber !='' and cnumber !=null"> and cnumber=#{cnumber}</if>
+        <if test="cseries!='' and cseries !=null ">and cseries=#{cseries}</if>
+        <if test="state!='' and state !=null ">and state=#{state}</if>
+    </select>
+</mapper>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.syc.dao.UserDao">
+    <!--添加用户-->
+    <insert id="saveUser" parameterType="User" >
+    insert into user(username,password,name,sex,phone,strDate,company,rid) values (#{username},#{password},#{name},#{sex}
+    ,#{phone},#{strDate},#{company},#{rid})
+    </insert>
+    <!--根据用户名查询用户-->
+    <select id="selUserByusername" parameterType="String" resultType="User">
+        select * from user where username=#{username}
+    </select>
+    <resultMap id="UserMap" type="User">
+        <id column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="name" property="name"/>
+        <result column="sex" property="sex"/>
+        <result column="phone" property="phone"/>
+        <result column="company" property="company"/>
+        <result column="rid" property="rid"/>
+        <result column="states" property="states"/>
+        <result column="yewustates" property="yewustates"/>
+        <result column="strDate" property="strDate"/>
+        <association property="role" javaType="Role">
+            <id column="rid" property="rid"/>
+            <result column="rname" property="rname"/>
+        </association>
+    </resultMap>
+    <!--查询所有非管理员的用户-->
+    <select id="selAllUser" resultMap="UserMap">
+    SELECT  *  FROM  USER  AS u , role AS r WHERE u.rid > 1 AND u.rid=r.rid
+    </select>
+    <!--根据id删除用户-->
+    <delete id="delUserByID" parameterType="Integer" >
+        delete from user where id=#{id}
+    </delete>
+    <!--根据条件查询用户-->
+    <select id="selUserByMap" parameterType="Map" resultMap="UserMap">
+    SELECT  *  FROM  user  AS u , role AS r WHERE u.rid > 1 AND u.rid=r.rid
+        <if test="username !='' and username !=null"> and username=#{username}</if>
+        <if test="name!='' and name !=null ">and name=#{name}</if>
+        <if test="company!='' and company !=null ">and company=#{company}</if>
+    </select>
+    <!--根据id查询用户-->
+    <select id="selUserById" resultMap="UserMap" parameterType="Integer">
+         SELECT  *  FROM  user  AS u , role AS r WHERE  u.id=#{id} AND u.rid=r.rid
+    </select>
+     <!--修改用户-->
+    <update  id="update" parameterType="User">
+        update user
+        <set>
+            <if test="id !=null and id !=''">
+                id=#{id},
+            </if>
+            <if test="username !=null and username !=''">
+                username =#{username},
+            </if>
+            <if test="name !=null and name !=''">
+                name=#{name},
+            </if>
+            <if test="password !=null and password !=''">
+                password=#{password},
+            </if>
+            <if test="sex !=null and sex !=''">
+                sex=#{sex},
+            </if>
+            <if test="phone !=null and phone !=''">
+                phone=#{phone},
+            </if>
+            <if test="age !=null and age !=''">
+                age=#{age},
+            </if>
+
+            <if test="company !=null and company !=''">
+                company=#{company},
+            </if>
+            <if test="rid !=null and rid !=''">
+                rid=#{rid},
+            </if>
+            <if test="strDate !=null and strDate !=''">
+                strDate=#{strDate},
+            </if>
+            <if test="states !=null and states !=''">
+                states=#{states},
+            </if>
+            <if test="yewustates !=null and yewustates !=''">
+                yewustates=#{yewustates},
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+</mapper>
