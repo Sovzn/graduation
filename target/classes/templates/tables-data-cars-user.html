@@ -76,7 +76,7 @@
                     <li class="menu-item-has-children dropdown" shiro:hasAnyPermissions="User:adduser, User:listuser, User:listadduser">
                         <a  th:href="@{#}" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>用户管理</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li shiro:hasPermissions="User:listadduser"><i class="fa fa-table"></i><a th:href="@{/tolistadduser}">批量添加</a></li>
+                            <!--<li shiro:hasPermissions="User:listadduser"><i class="fa fa-table"></i><a th:href="@{/tolistadduser}">批量添加</a></li>-->
                             <li shiro:hasPermissions="User:listuser"><i class="fa fa-table"></i><a th:href="@{/userslist}">用户列表</a></li>
                             <li shiro:hasPermissions="User:adduser"><i class="fa fa-table"></i><a th:href="@{/toadduser}">添加用户</a></li>
                         </ul>

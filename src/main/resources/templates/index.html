@@ -101,7 +101,7 @@
                     <li class="menu-item-has-children dropdown" shiro:hasAnyPermissions="User:adduser, User:listuser, User:listadduser">
                         <a  th:href="@{#}" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>用户管理</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li shiro:hasPermissions="User:listadduser"><i class="fa fa-table"></i><a th:href="@{/tolistadduser}">批量添加</a></li>
+                           <!-- <li shiro:hasPermissions="User:listadduser"><i class="fa fa-table"></i><a th:href="@{/tolistadduser}">批量添加</a></li>-->
                             <li shiro:hasPermissions="User:listuser"><i class="fa fa-table"></i><a th:href="@{/userslist}">用户列表</a></li>
                             <li shiro:hasPermissions="User:adduser"><i class="fa fa-table"></i><a th:href="@{/toadduser}">添加用户</a></li>
                         </ul>
@@ -320,7 +320,7 @@
                                 <h4 class="box-title">公告栏目 </h4>
                             </div>
                             <ul style="margin-left: 100px" th:each="notice:${notices}">
-                              <li ONCLICK="" style="clear:both;float: left;font-size: smaller" th:text="${notice.content}"></li>&ensp;&ensp;&ensp;&ensp;<a style="font-size: x-small;color: #00c292" class="btn btn-mini" th:href="@{/increase/}+${notice.nid}">已阅</a>
+                              <li ONCLICK="" style="clear:both;float: left;font-size: smaller" th:text="${notice.content}"></li>&ensp;&ensp;&ensp;&ensp;<a style="font-size: x-small;color: #00c292" class="btn btn-mini" th:href="@{/increase/}+${notice.nid}" th:onclick="javascript:success()">已阅</a>
                             </ul>
                             <div class="row">
                                 <div class="col-lg-8">
@@ -409,6 +409,9 @@
 
     <!--Local Stuff-->
     <script>
+        function success() {
+            alert("操作成功!")
+        }
         function showModel() {
             document.getElementById('myModelmodel').style.display = 'block';
         }

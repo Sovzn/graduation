@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
+import java.util.Calendar;
 
 @Controller
 public class LoginController {
@@ -37,6 +38,10 @@ public class LoginController {
            }
            session.setAttribute("loginUser",user.getName());
            session.setAttribute("UserID",user.getId());
+           Calendar now=Calendar.getInstance();
+           int year=now.get(Calendar.YEAR);
+           int age=year-Integer.parseInt(user.getStrDate().substring(0,4));
+           user.setAge(age);
            session.setAttribute("user",user);
            return "redirect:/toindex";
        }catch (UnknownAccountException e){
